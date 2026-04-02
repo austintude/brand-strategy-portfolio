@@ -1,0 +1,144 @@
+{
+  "company": "Nike",
+  "industry": "Athletic Apparel & Lifestyle",
+  "role": "Senior Brand Strategist",
+  "positioning": {
+    "canvas": {
+      "targetAudience": "Performance-driven athletes and culturally conscious consumers aged 18-35 who see sport as self-expression",
+      "categoryFrame": "Athletic lifestyle and performance culture",
+      "brandPromise": "Empowering every athlete to push beyond their perceived limits",
+      "reasonsToBelieve": [
+        "40+ years of athlete partnership and performance innovation",
+        "Cultural relevance that transcends sport into music, fashion, and social movements",
+        "DTC ecosystem that creates personalized relationships at scale"
+      ],
+      "competitiveDifferentiator": "Nike doesn't just sell performance -- it sells the identity of being an athlete. The brand owns the emotional territory between aspiration and achievement."
+    },
+    "competitiveMap": {
+      "xAxis": "Product Innovation Focus -- Cultural Relevance Focus",
+      "yAxis": "Mass Market -- Premium",
+      "positions": [
+        { "name": "Nike", "x": 75, "y": 70 },
+        { "name": "Adidas", "x": 65, "y": 60 },
+        { "name": "New Balance", "x": 40, "y": 65 },
+        { "name": "Under Armour", "x": 70, "y": 40 },
+        { "name": "On Running", "x": 55, "y": 80 },
+        { "name": "Lululemon", "x": 35, "y": 85 }
+      ]
+    },
+    "recommendations": [
+      {
+        "number": 1,
+        "title": "Reclaim the 'Athlete for Everyone' Territory",
+        "detail": "Recent premium positioning has created perception gaps with casual and aspiring athletes. Recommend a sub-brand or campaign tier specifically targeting the 'first mile' audience -- people starting their athletic journey -- without diluting the performance brand."
+      },
+      {
+        "number": 2,
+        "title": "Own the Intersection of Sport and Sustainability",
+        "detail": "Sustainability messaging is currently product-level (Move to Zero). Elevate it to a brand-positioning pillar: 'The Future of Sport is Sustainable.' This gives Nike first-mover advantage on a territory competitors are approaching slowly."
+      },
+      {
+        "number": 3,
+        "title": "Build Community as a Competitive Moat",
+        "detail": "Nike Run Club and Training Club have 100M+ users but are underutilized as brand-building platforms. Transform them from utility apps into community identity platforms where belonging to Nike's ecosystem is itself a status symbol."
+      }
+    ],
+    "messagingHierarchy": {
+      "brandPromise": "If you have a body, you are an athlete. And every athlete deserves to push further.",
+      "valuePropositions": [
+        "Performance innovation grounded in athlete insight and biomechanical research",
+        "Cultural authenticity that connects sport to self-expression and social identity",
+        "A connected ecosystem that supports the full athlete journey from first run to personal best"
+      ],
+      "proofPoints": [
+        "Partnerships with 4,000+ elite athletes across 50+ sports",
+        "Nike Run Club community of 100M+ runners worldwide",
+        "$1.5B annual R&D investment in performance innovation",
+        "Move to Zero: 80% waste diversion from landfills across North American facilities"
+      ]
+    }
+  },
+  "identity": {
+    "audit": "Nike's visual identity is arguably the most recognized in global sport. The Swoosh operates as a standalone mark with near-universal recognition. However, three areas warrant attention: (1) The sub-brand architecture is becoming visually cluttered -- Jordan, ACG, Nike Lab, and Nike SB each have distinct visual languages that don't always ladder clearly to the parent. (2) Digital brand expression across the app ecosystem feels utilitarian rather than inspiring. (3) The typography system (Futura derivatives) is starting to feel expected rather than distinctive in a market where competitors are investing heavily in custom type.",
+    "moodBoard": [
+      "Bold, kinetic photography that captures motion blur and human intensity",
+      "A tonal shift toward warmer, more inclusive imagery alongside the traditional high-contrast athlete portraiture",
+      "Textural elements inspired by track surfaces, court floors, and natural terrain",
+      "Typography that feels hand-made and urgent rather than corporate and clean"
+    ],
+    "recommendations": [
+      "Commission a custom typeface that becomes as iconic as the Swoosh -- a typographic asset no competitor can replicate",
+      "Develop a unified digital design language that brings the energy of Nike's best campaign work into the everyday app and e-commerce experience",
+      "Create a visual 'bridge' system that connects sub-brands to the parent without homogenizing their distinct identities"
+    ]
+  },
+  "campaigns": [
+    {
+      "concept": "The First Mile",
+      "insight": "80% of people who buy athletic shoes never run a race. Nike's marketing celebrates the finish line, but the hardest step for most people is the first one.",
+      "territory": "Democratizing athletic identity -- you don't have to be elite to be an athlete",
+      "headline": "The First Mile Is the Hardest. We're With You.",
+      "channels": ["Social (TikTok, Instagram Reels)", "Nike Run Club integration", "OOH in non-traditional athletic locations (bus stops, office parks)", "Podcast partnerships with wellness and personal development shows"],
+      "impact": "Projected to increase Nike Run Club signups by 40% and shift brand perception among non-athletes from 'aspirational but not for me' to 'welcoming and motivating.'"
+    },
+    {
+      "concept": "Court Culture",
+      "insight": "Basketball culture has become the dominant aesthetic in streetwear and music, but the connection back to actual basketball is thinning. There's an opportunity to re-anchor the cultural moment in the sport itself.",
+      "territory": "Basketball as the origin story of contemporary culture",
+      "headline": "Every Court Has a Story. Every Story Starts With the Game.",
+      "channels": ["Documentary series (YouTube/Netflix)", "Limited edition product drops tied to specific courts", "Community court renovation program (earned media engine)", "Spotify playlist partnerships curated by court location"],
+      "impact": "Strengthens Nike Basketball's cultural authority against Jordan Brand competitors. Expected to drive 25% increase in basketball category engagement and significant earned media from the community renovation angle."
+    },
+    {
+      "concept": "Move to Zero: The Athlete's Promise",
+      "insight": "Athletes depend on healthy environments -- clean air for runners, clean water for swimmers, healthy terrain for trail runners. Sustainability isn't a corporate initiative; it's an athlete's personal stake.",
+      "territory": "Sustainability as athletic self-interest, not corporate altruism",
+      "headline": "The Planet Is Your Arena. Keep It in the Game.",
+      "channels": ["Athlete-led content across owned channels", "Partnerships with outdoor and environmental organizations", "Product transparency campaign (QR codes on products linking to impact data)", "Annual 'Move to Zero' competition between Nike communities globally"],
+      "impact": "Repositions sustainability from a CSR footnote to a core brand narrative. Projected to improve sustainability perception by 30 points and drive 15% increase in Move to Zero product line sales."
+    }
+  ],
+  "measurement": {
+    "framework": "A three-tier brand health measurement system: (1) Strategic Health -- quarterly brand tracking across awareness, consideration, preference, and key perception attributes benchmarked against Adidas, New Balance, On, and Lululemon. (2) Cultural Velocity -- real-time monitoring of brand mentions, sentiment, and share of conversation across social, earned media, and search. (3) Business Impact -- monthly correlation analysis linking brand health shifts to DTC revenue, app engagement, and customer lifetime value.",
+    "kpis": [
+      {
+        "metric": "Unaided Brand Awareness",
+        "target": "Maintain 90%+ in core demo",
+        "why": "The foundation metric -- if awareness dips, everything downstream suffers"
+      },
+      {
+        "metric": "Brand Preference vs. Top 3 Competitors",
+        "target": "5+ point gap over nearest competitor",
+        "why": "Preference translates directly to pricing power and loyalty"
+      },
+      {
+        "metric": "Cultural Share of Voice",
+        "target": "40%+ of athletic brand cultural conversation",
+        "why": "Leading indicator of future consideration and preference shifts"
+      },
+      {
+        "metric": "Brand-Driven DTC Revenue Correlation",
+        "target": "0.65+ correlation coefficient",
+        "why": "Proves the business case for brand investment to the C-suite"
+      },
+      {
+        "metric": "Sustainability Perception Index",
+        "target": "Top 2 in category within 18 months",
+        "why": "Tracks effectiveness of the Move to Zero positioning elevation"
+      },
+      {
+        "metric": "NPS by Customer Segment",
+        "target": "60+ across all segments",
+        "why": "Segment-level NPS reveals where brand experience is weakest"
+      }
+    ],
+    "tools": [
+      "Qualtrics for quarterly brand tracking surveys",
+      "Brandwatch for real-time social listening and cultural velocity",
+      "Google Trends + Ahrefs for search share of voice",
+      "Looker dashboard integrating brand health with DTC revenue data",
+      "Relative Insight for competitive language analysis"
+    ],
+    "dashboardMockup": "A unified brand health command center with four quadrants: (1) Brand Funnel view showing awareness > consideration > preference > purchase intent trends over time, (2) Competitive radar chart showing positioning on 8 key perception attributes vs. 4 competitors, (3) Cultural velocity feed showing real-time SOV, trending topics, and sentiment shifts, (4) Business impact panel correlating brand health movements with revenue and engagement metrics. Updated weekly with quarterly deep-dive reports."
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "positioning": [
+    {
+      "title": "Market Repositioning -- Craft Beverage Brand",
+      "client": "Regional Craft Brewery",
+      "challenge": "A 15-year-old craft brewery had lost differentiation as the market saturated with 200+ local competitors. Brand awareness was high but preference was declining 8% YoY.",
+      "approach": "Conducted brand health audit and competitive perception mapping. Identified whitespace around 'brewing as local storytelling' -- shifting from product attributes to cultural narrative. Rebuilt positioning around provenance and neighborhood identity.",
+      "outcome": "Brand preference scores increased 23% within 6 months. Premium product line saw 41% revenue lift. Earned media coverage tripled through the cultural narrative angle.",
+      "metrics": "+23% brand preference, +41% premium revenue, 3x earned media",
+      "image": "/images/placeholder-positioning-1.jpg"
+    },
+    {
+      "title": "Category Creation -- B2B SaaS Platform",
+      "client": "Enterprise Workflow Platform",
+      "challenge": "The product sat uncomfortably between project management and business intelligence tools. Sales cycles were long because prospects couldn't categorize the offering, leading to 60% deal stall rate.",
+      "approach": "Developed a new category narrative: 'Operational Intelligence.' Built a category design playbook including analyst briefings, thought leadership content, and a competitive comparison framework that redefined the evaluation criteria in the company's favor.",
+      "outcome": "Sales cycle shortened by 34%. Category term appeared in 12 analyst reports within the first year. Inbound qualified leads increased 67% as the positioning clarified ICP targeting.",
+      "metrics": "-34% sales cycle, 67% inbound lead increase, 12 analyst mentions",
+      "image": "/images/placeholder-positioning-2.jpg"
+    },
+    {
+      "title": "Brand Architecture Redesign -- Multi-Brand Portfolio",
+      "client": "Consumer Health & Wellness Company",
+      "challenge": "Five acquired brands were cannibalizing each other with overlapping positioning. Customer research showed 72% confusion about which brand served which need, and cross-sell rates were near zero.",
+      "approach": "Designed a branded house architecture with clear swim lanes. Each sub-brand received a distinct positioning territory mapped to a specific customer need-state. Created internal brand governance toolkit to prevent future drift.",
+      "outcome": "Cross-sell rates improved from 2% to 18%. Marketing spend efficiency improved 28% by eliminating redundant campaigns. Customer clarity scores jumped from 28% to 81%.",
+      "metrics": "9x cross-sell improvement, 28% spend efficiency, +53pt clarity",
+      "image": "/images/placeholder-positioning-3.jpg"
+    }
+  ],
+  "identity": [
+    {
+      "title": "Visual Identity System -- Fintech Startup",
+      "client": "Series B Fintech Company",
+      "challenge": "The brand visual identity was cobbled together from early startup days -- inconsistent usage across 14 touchpoints, no design system, and a logo that didn't scale to mobile.",
+      "approach": "Led full visual identity overhaul: new wordmark, icon system, color palette expansion, typography hierarchy, and a comprehensive design system with 200+ components. Prioritized accessibility (WCAG AA) throughout.",
+      "outcome": "Brand recognition in aided recall tests increased 31%. Design production time decreased 40% with the new system. App store rating improved 0.4 stars partly attributed to visual consistency.",
+      "metrics": "+31% recognition, -40% production time, consistent across 14 touchpoints",
+      "image": "/images/placeholder-identity-1.jpg"
+    },
+    {
+      "title": "Rebrand & Design System -- Professional Services Firm",
+      "client": "Management Consulting Firm",
+      "challenge": "A legacy brand identity from 2008 felt dated and didn't reflect the firm's evolution into digital strategy. Recruiting top talent was harder because the brand signaled 'old guard.'",
+      "approach": "Executed a measured evolution -- not a revolution. Modernized the wordmark, introduced a dynamic color system that flexes by practice area, and built a Figma-based design system that empowered internal teams to create on-brand materials independently.",
+      "outcome": "Talent acquisition team reported 22% increase in top-tier candidate applications. Client perception survey showed 'innovative' attribute jumped from 18% to 52%.",
+      "metrics": "+22% talent applications, +34pt innovation perception",
+      "image": "/images/placeholder-identity-2.jpg"
+    }
+  ],
+  "campaigns": [
+    {
+      "title": "Launch Campaign -- 'The Quiet Revolution'",
+      "client": "Premium Audio Brand",
+      "challenge": "Launching a noise-canceling product in a market dominated by two entrenched players with 80% combined market share and massive ad budgets.",
+      "approach": "Instead of competing on specs, built a campaign around the emotional insight that silence is the ultimate luxury. 'The Quiet Revolution' launched with ASMR-style content, partnerships with meditation apps, and experiential pop-ups in the loudest neighborhoods in 5 cities.",
+      "outcome": "Campaign earned 45M organic impressions. Launch month sales exceeded forecast by 180%. Brand entered the consideration set for 34% of category shoppers within 90 days.",
+      "metrics": "45M impressions, 180% above forecast, 34% consideration in 90 days",
+      "image": "/images/placeholder-campaign-1.jpg"
+    },
+    {
+      "title": "Integrated Brand Campaign -- 'Built Different'",
+      "client": "DTC Athletic Wear Brand",
+      "challenge": "The brand had strong product-market fit with its core audience but zero awareness outside that niche. Needed to scale from $8M to $25M revenue without losing authenticity.",
+      "approach": "Developed a multi-phase campaign. Phase 1: micro-influencer army (200 athletes, not celebrities). Phase 2: documentary-style content showing real training stories. Phase 3: strategic retail partnerships that used the content as in-store experiences.",
+      "outcome": "Revenue hit $28M (112% of target). Social following grew 340%. Retail partners reported the in-store content increased dwell time by 45%.",
+      "metrics": "$28M revenue (112% target), 340% social growth, 45% dwell time increase",
+      "image": "/images/placeholder-campaign-2.jpg"
+    },
+    {
+      "title": "Reputational Recovery Campaign",
+      "client": "Regional Healthcare System",
+      "challenge": "A widely reported service failure had driven NPS from +42 to -15 in one quarter. Patient volume was declining 12% MoM and local media coverage remained negative.",
+      "approach": "Built a transparency-first recovery campaign: public accountability commitments, a 'See Our Progress' microsite with real-time metrics, staff spotlight stories showing the human side of care, and a community listening tour across 8 neighborhoods.",
+      "outcome": "NPS recovered to +31 within 8 months. Patient volume stabilized within 3 months and returned to growth by month 5. Local media sentiment shifted from 80% negative to 65% positive.",
+      "metrics": "NPS: -15 to +31, volume recovery in 5mo, media sentiment flip",
+      "image": "/images/placeholder-campaign-3.jpg"
+    }
+  ],
+  "measurement": [
+    {
+      "title": "Brand Health Tracking System",
+      "client": "Multi-Location Retail Brand",
+      "challenge": "The brand team was flying blind -- making $4M/year in brand investment decisions based on gut feel and lagging sales data. No systematic measurement of brand equity or competitive position.",
+      "approach": "Designed and implemented a quarterly brand health tracker across 6 dimensions: awareness, consideration, preference, perception attributes, NPS, and share of voice. Integrated with business outcomes data to build a brand-to-revenue attribution model.",
+      "outcome": "Identified that 'trust' perception was the strongest revenue predictor (0.73 correlation). Reallocated 30% of brand spend toward trust-building initiatives. ROI on brand investment became measurable for the first time -- showed 3.2x return.",
+      "metrics": "3.2x brand ROI identified, 30% spend reallocation, quarterly cadence established",
+      "image": "/images/placeholder-measurement-1.jpg"
+    },
+    {
+      "title": "Share of Voice Intelligence Dashboard",
+      "client": "B2B Technology Company",
+      "challenge": "The company was outspent 5:1 on marketing by its largest competitor but had no visibility into whether its more targeted approach was actually winning share of voice in the segments that mattered.",
+      "approach": "Built a real-time share of voice dashboard tracking brand mentions, sentiment, and topic ownership across earned, owned, social, and search channels. Segmented by ICP vertical to show where the brand was winning vs. losing the conversation.",
+      "outcome": "Revealed the brand owned 62% share of voice in two high-value verticals despite lower overall spend. Led to a focused strategy that doubled down on strengths, improving pipeline from those verticals by 89%.",
+      "metrics": "62% SOV in key verticals, +89% pipeline, real-time visibility",
+      "image": "/images/placeholder-measurement-2.jpg"
+    }
+  ]
+}
