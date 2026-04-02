@@ -13,7 +13,8 @@ CRITICAL RULES:
 - The competitive map positions should reflect actual market positioning (x and y values 0-100).
 - All text should read as if written by a senior strategist presenting to a CMO.`;
 
-const buildUserPrompt = (companyName: string, industry: string) => `Create a comprehensive brand strategy for ${companyName} in the ${industry} industry.
+const buildUserPrompt = (companyName: string, industry: string, profileContext?: string) => {
+  let prompt = `Create a comprehensive brand strategy for ${companyName} in the ${industry} industry.
 
 Return a JSON object with this EXACT structure (no additional keys, no missing keys):
 
@@ -117,18 +118,179 @@ IMPORTANT:
 - Never use em dashes anywhere. Use double hyphens (--) instead.
 - Return ONLY the JSON object. No other text.`;
 
+  if (profileContext) {
+    prompt += `\n\nCONTEXT ABOUT THE STRATEGIST:\n${profileContext}`;
+  }
+
+  return prompt;
+};
+
+const buildPortfolioPrompt = (profileContext: string) => `Based on the strategist profile below, create a personalized portfolio of case studies showcasing their real brand strategy work.
+
+PROFILE:
+${profileContext}
+
+Return a JSON object with this EXACT structure:
+
+{
+  "positioning": [
+    {
+      "title": "string -- case study title",
+      "client": "string -- actual company/client name",
+      "industry": "string -- industry vertical",
+      "challenge": "string -- 2-3 sentences describing the business challenge",
+      "approach": "string -- 2-3 sentences describing the strategic approach",
+      "outcome": "string -- 2-3 sentences describing the results and impact",
+      "metrics": "string -- specific, measurable outcomes (e.g., '+23% brand preference, +41% revenue, 3x earned media')"
+    },
+    {
+      "title": "string",
+      "client": "string",
+      "industry": "string",
+      "challenge": "string",
+      "approach": "string",
+      "outcome": "string",
+      "metrics": "string"
+    },
+    {
+      "title": "string",
+      "client": "string",
+      "industry": "string",
+      "challenge": "string",
+      "approach": "string",
+      "outcome": "string",
+      "metrics": "string"
+    }
+  ],
+  "identity": [
+    {
+      "title": "string -- case study title",
+      "client": "string -- actual company/client name",
+      "industry": "string -- industry vertical",
+      "challenge": "string -- 2-3 sentences describing the branding challenge",
+      "approach": "string -- 2-3 sentences describing the approach",
+      "outcome": "string -- 2-3 sentences describing results",
+      "metrics": "string -- specific outcomes"
+    },
+    {
+      "title": "string",
+      "client": "string",
+      "industry": "string",
+      "challenge": "string",
+      "approach": "string",
+      "outcome": "string",
+      "metrics": "string"
+    }
+  ],
+  "campaigns": [
+    {
+      "title": "string -- campaign case study title",
+      "client": "string -- actual company/client name",
+      "industry": "string -- industry vertical",
+      "challenge": "string -- 2-3 sentences describing the marketing challenge",
+      "approach": "string -- 2-3 sentences describing the campaign strategy",
+      "outcome": "string -- 2-3 sentences describing the results",
+      "metrics": "string -- specific campaign metrics and KPIs"
+    },
+    {
+      "title": "string",
+      "client": "string",
+      "industry": "string",
+      "challenge": "string",
+      "approach": "string",
+      "outcome": "string",
+      "metrics": "string"
+    },
+    {
+      "title": "string",
+      "client": "string",
+      "industry": "string",
+      "challenge": "string",
+      "approach": "string",
+      "outcome": "string",
+      "metrics": "string"
+    }
+  ],
+  "measurement": [
+    {
+      "title": "string -- measurement/analytics case study title",
+      "client": "string -- actual company/client name",
+      "industry": "string -- industry vertical",
+      "challenge": "string -- 2-3 sentences describing the measurement challenge",
+      "approach": "string -- 2-3 sentences describing the measurement approach",
+      "outcome": "string -- 2-3 sentences describing the impact",
+      "metrics": "string -- specific measurement results and ROI"
+    },
+    {
+      "title": "string",
+      "client": "string",
+      "industry": "string",
+      "challenge": "string",
+      "approach": "string",
+      "outcome": "string",
+      "metrics": "string"
+    }
+  ]
+}
+
+CRITICAL RULES:
+- Create case studies based on the strategist's REAL work experience from their resume/portfolio
+- Use actual company/client names from their background
+- Include realistic metrics and measurable outcomes
+- Structure each case study with clear challenge/approach/outcome flow
+- Make titles compelling and specific to the work shown
+- Never use em dashes -- use double hyphens (--) instead
+- Return ONLY the JSON object, no other text`;
+
+/**
+ * Builds the content array for a Claude API message.
+ * If profileContext contains a [PDF_BASE64:...] marker, extracts it
+ * and sends it as a document content block so Claude can read the PDF natively.
+ */
+function buildMessageContent(textPrompt: string, profileContext?: string): any[] {
+  const content: any[] = [];
+
+  // Check if profile context contains an embedded PDF
+  if (profileContext) {
+    const pdfMatch = profileContext.match(/\[PDF_BASE64:(data:application\/pdf;base64,([^\]]+))\]/);
+    if (pdfMatch) {
+      const base64Data = pdfMatch[2]; // just the base64 part without the data URL prefix
+      // Add PDF as a document content block
+      content.push({
+        type: 'document',
+        source: {
+          type: 'base64',
+          media_type: 'application/pdf',
+          data: base64Data,
+        },
+      });
+      // Remove the PDF marker from text context so it doesn't bloat the prompt
+      profileContext = profileContext.replace(/\[PDF_BASE64:[^\]]+\]/, '[Resume PDF attached above]');
+    }
+  }
+
+  content.push({ type: 'text', text: textPrompt });
+  return content;
+}
+
 export interface GenerationProgress {
   stage: string;
   detail: string;
   percent: number;
 }
 
+export interface GenerationResult {
+  portfolio?: any;
+  strategy: any;
+}
+
 export async function generateStrategy(
   companyName: string,
   industry: string,
   apiKey: string,
+  profileContext?: string,
   onProgress?: (progress: GenerationProgress) => void
-): Promise<any> {
+): Promise<GenerationResult> {
   onProgress?.({
     stage: 'Researching',
     detail: `Analyzing ${companyName} market position and competitive landscape...`,
@@ -137,6 +299,54 @@ export async function generateStrategy(
 
   // Small delay to show the first progress state
   await new Promise((r) => setTimeout(r, 800));
+
+  // If profile data is provided, generate portfolio first
+  let portfolio = null;
+  if (profileContext) {
+    onProgress?.({
+      stage: 'Building Portfolio',
+      detail: 'Extracting case studies from your experience...',
+      percent: 15,
+    });
+
+    try {
+      const portfolioResponse = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true',
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 6000,
+          system: SYSTEM_PROMPT,
+          messages: [
+            {
+              role: 'user',
+              content: buildMessageContent(buildPortfolioPrompt(profileContext), profileContext),
+            },
+          ],
+        }),
+      });
+
+      if (portfolioResponse.ok) {
+        const portfolioData = await portfolioResponse.json();
+        const portfolioTextContent = portfolioData.content?.find((block: any) => block.type === 'text');
+        if (portfolioTextContent?.text) {
+          let portfolioJsonText = portfolioTextContent.text.trim();
+          if (portfolioJsonText.startsWith('```')) {
+            portfolioJsonText = portfolioJsonText.replace(/^```(?:json)?\s*/, '').replace(/\s*```$/, '');
+          }
+          portfolio = JSON.parse(portfolioJsonText);
+        }
+      }
+    } catch (error) {
+      console.error('Error generating portfolio:', error);
+      // Continue even if portfolio generation fails
+    }
+  }
 
   onProgress?.({
     stage: 'Strategizing',
@@ -160,7 +370,9 @@ export async function generateStrategy(
         messages: [
           {
             role: 'user',
-            content: buildUserPrompt(companyName, industry),
+            content: profileContext
+              ? buildMessageContent(buildUserPrompt(companyName, industry, profileContext), profileContext)
+              : buildUserPrompt(companyName, industry),
           },
         ],
       }),
@@ -206,7 +418,7 @@ export async function generateStrategy(
       percent: 100,
     });
 
-    return strategy;
+    return portfolio ? { portfolio, strategy } : { strategy };
   } catch (error: any) {
     if (error.message?.includes('401') || error.message?.includes('authentication')) {
       throw new Error('Invalid API key. Please check your Anthropic API key and try again.');

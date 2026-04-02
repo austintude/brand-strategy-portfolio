@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback } from 'react';
 import nikeData from '@/content/companies/nike.json';
 import portfolio from '@/content/portfolio.json';
 import { generateStrategy, GenerationProgress } from '@/lib/generate-strategy';
+import { extractProfileData } from '@/lib/extract-profile';
 
 import Hero from '@/components/Hero';
 import PositioningSection from '@/components/PositioningSection';
@@ -21,6 +22,13 @@ interface StoredCompany {
   industry: string;
   createdBy: string;
   roleNote: string;
+}
+
+interface PersonalProfile {
+  resume?: string;
+  portfolioUrls?: string[];
+  linkedinUrl?: string;
+  personalStatement?: string;
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -66,7 +74,7 @@ function GeneratingScreen({ progress }: { progress: GenerationProgress }) {
           />
         </div>
         <p className="text-sm text-gray-400 font-sans">
-          This typically takes 15-20 seconds
+          This typically takes 15--20 seconds
         </p>
       </div>
     </div>
@@ -163,6 +171,8 @@ export default function CompanyPage() {
   const [roleName, setRoleName] = useState('Brand Strategist');
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [companyData, setCompanyData] = useState<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [portfolioData, setPortfolioData] = useState<any>(portfolio);
   const [isLoading, setIsLoading] = useState(true);
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationProgress, setGenerationProgress] = useState<GenerationProgress>({
@@ -184,44 +194,65 @@ export default function CompanyPage() {
     });
   }, []);
 
-  const triggerGeneration = useCallback(async (name: string, industry: string) => {
-    let apiKey = '';
-    try {
-      apiKey = localStorage.getItem('anthropic-api-key') || '';
-    } catch {
-      // pass
-    }
-
-    if (!apiKey) {
-      setNeedsApiKey(true);
-      setIsLoading(false);
-      return;
-    }
-
-    setIsGenerating(true);
-    setGenerationError(null);
-
-    try {
-      const strategy = await generateStrategy(name, industry, apiKey, setGenerationProgress);
-
-      // Cache the generated strategy in localStorage
+  const triggerGeneration = useCallback(
+    async (name: string, industry: string) => {
+      let apiKey = '';
       try {
-        localStorage.setItem(`strategy--${companySlug}`, JSON.stringify(strategy));
+        apiKey = localStorage.getItem('anthropic-api-key') || '';
       } catch {
-        // Storage full or unavailable
+        // pass
       }
 
-      setCompanyData(strategy);
-      setIsGenerating(false);
-      setIsLoading(false);
-      // Auto-switch to the proposed view since that is what was just generated
-      setActiveView('proposed');
-    } catch (err) {
-      setGenerationError(err instanceof Error ? err.message : 'An unexpected error occurred');
-      setIsGenerating(false);
-      setIsLoading(false);
-    }
-  }, [companySlug]);
+      if (!apiKey) {
+        setNeedsApiKey(true);
+        setIsLoading(false);
+        return;
+      }
+
+      setIsGenerating(true);
+      setGenerationError(null);
+
+      try {
+        // Load personal profile if available
+        let profileContext: string | undefined = undefined;
+        try {
+          const savedProfile = localStorage.getItem('personal-profile');
+          if (savedProfile) {
+            const profileData: PersonalProfile = JSON.parse(savedProfile);
+            profileContext = await extractProfileData(profileData);
+          }
+        } catch {
+          // Continue without profile context
+        }
+
+        const result = await generateStrategy(name, industry, apiKey, profileContext, setGenerationProgress);
+
+        // Cache the generated strategy in localStorage
+        try {
+          localStorage.setItem(`strategy--${companySlug}`, JSON.stringify(result.strategy));
+
+          // Cache personalized portfolio if available
+          if (result.portfolio) {
+            localStorage.setItem(`personal-portfolio`, JSON.stringify(result.portfolio));
+            setPortfolioData(result.portfolio);
+          }
+        } catch {
+          // Storage full or unavailable
+        }
+
+        setCompanyData(result.strategy);
+        setIsGenerating(false);
+        setIsLoading(false);
+        // Auto-switch to the proposed view since that is what was just generated
+        setActiveView('proposed');
+      } catch (err) {
+        setGenerationError(err instanceof Error ? err.message : 'An unexpected error occurred');
+        setIsGenerating(false);
+        setIsLoading(false);
+      }
+    },
+    [companySlug]
+  );
 
   useEffect(() => {
     // 1. Check for pre-built company JSON
@@ -235,7 +266,17 @@ export default function CompanyPage() {
       return () => window.removeEventListener('scroll', trackSectionVisibility);
     }
 
-    // 2. Check for cached AI-generated strategy
+    // 2. Check for cached personalized portfolio
+    try {
+      const cachedPortfolio = localStorage.getItem('personal-portfolio');
+      if (cachedPortfolio) {
+        setPortfolioData(JSON.parse(cachedPortfolio));
+      }
+    } catch {
+      // pass
+    }
+
+    // 3. Check for cached AI-generated strategy
     let cachedStrategy = null;
     try {
       const cached = localStorage.getItem(`strategy--${companySlug}`);
@@ -246,7 +287,7 @@ export default function CompanyPage() {
       // pass
     }
 
-    // 3. Load company info from localStorage (set by intake form)
+    // 4. Load company info from localStorage (set by intake form)
     let storedCompanyName = '';
     let storedIndustry = '';
     try {
@@ -277,7 +318,7 @@ export default function CompanyPage() {
       setCompanyData(cachedStrategy);
       setIsLoading(false);
     } else {
-      // 4. No cached strategy -- trigger AI generation
+      // 5. No cached strategy -- trigger AI generation
       triggerGeneration(storedCompanyName, storedIndustry);
     }
 
@@ -352,7 +393,7 @@ export default function CompanyPage() {
         <PositioningSection
           activeView={activeView}
           companyName={companyName}
-          portfolioData={portfolio}
+          portfolioData={portfolioData}
           companyData={companyData}
         />
       </div>
@@ -361,7 +402,7 @@ export default function CompanyPage() {
         <IdentitySection
           activeView={activeView}
           companyName={companyName}
-          portfolioData={portfolio}
+          portfolioData={portfolioData}
           companyData={companyData}
         />
       </div>
@@ -370,7 +411,7 @@ export default function CompanyPage() {
         <CampaignsSection
           activeView={activeView}
           companyName={companyName}
-          portfolioData={portfolio}
+          portfolioData={portfolioData}
           companyData={companyData}
         />
       </div>
@@ -379,7 +420,7 @@ export default function CompanyPage() {
         <MeasurementSection
           activeView={activeView}
           companyName={companyName}
-          portfolioData={portfolio}
+          portfolioData={portfolioData}
           companyData={companyData}
         />
       </div>
