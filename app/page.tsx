@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function IntakePage() {
@@ -10,8 +10,22 @@ export default function IntakePage() {
     industry: '',
     name: 'Madison',
     role: '',
+    apiKey: '',
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [showApiKey, setShowApiKey] = useState(false);
+
+  // Load saved API key from localStorage on mount
+  useEffect(() => {
+    try {
+      const savedKey = localStorage.getItem('anthropic-api-key');
+      if (savedKey) {
+        setFormData((prev) => ({ ...prev, apiKey: savedKey }));
+      }
+    } catch {
+      // localStorage may not be available
+    }
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -44,6 +58,10 @@ export default function IntakePage() {
 
     try {
       localStorage.setItem(`company--${slug}`, JSON.stringify(companyInfo));
+      // Save API key separately so it persists across sessions
+      if (formData.apiKey.trim()) {
+        localStorage.setItem('anthropic-api-key', formData.apiKey.trim());
+      }
     } catch {
       // localStorage may not be available
     }
@@ -105,17 +123,20 @@ export default function IntakePage() {
                 required
               >
                 <option value="">Select an industry</option>
-                <option value="technology">Technology</option>
-                <option value="finance">Finance & Banking</option>
-                <option value="retail">Retail & E-commerce</option>
-                <option value="healthcare">Healthcare</option>
-                <option value="athletic">Athletic & Lifestyle</option>
-                <option value="food-beverage">Food & Beverage</option>
-                <option value="travel">Travel & Hospitality</option>
-                <option value="real-estate">Real Estate</option>
-                <option value="saas">SaaS & Enterprise</option>
-                <option value="consumer-goods">Consumer Goods</option>
-                <option value="other">Other</option>
+                <option value="Technology">Technology</option>
+                <option value="Finance & Banking">Finance & Banking</option>
+                <option value="Retail & E-commerce">Retail & E-commerce</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Athletic & Lifestyle">Athletic & Lifestyle</option>
+                <option value="Food & Beverage">Food & Beverage</option>
+                <option value="Travel & Hospitality">Travel & Hospitality</option>
+                <option value="Real Estate">Real Estate</option>
+                <option value="SaaS & Enterprise">SaaS & Enterprise</option>
+                <option value="Consumer Goods">Consumer Goods</option>
+                <option value="Entertainment & Media">Entertainment & Media</option>
+                <option value="Automotive">Automotive</option>
+                <option value="Education">Education</option>
+                <option value="Other">Other</option>
               </select>
             </div>
 
@@ -153,6 +174,63 @@ export default function IntakePage() {
                 placeholder="e.g., Applying for Senior Brand Strategist"
                 className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-[#C2410C] focus:ring-1 focus:ring-[#C2410C]/20 transition-colors placeholder-gray-400 font-sans"
               />
+            </div>
+
+            {/* AI Strategy Generation -- BYOK */}
+            <div className="border-t border-gray-100 pt-6">
+              <button
+                type="button"
+                onClick={() => setShowApiKey(!showApiKey)}
+                className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors font-sans"
+              >
+                <svg
+                  className={`w-4 h-4 transition-transform ${showApiKey ? 'rotate-90' : ''}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+                AI-Powered Strategy Generation
+              </button>
+
+              {showApiKey && (
+                <div className="mt-4 space-y-3">
+                  <p className="text-sm text-gray-500 font-sans">
+                    Add your Anthropic API key to generate custom brand strategies for any company using AI.
+                    Without a key, only pre-built strategies (like Nike) are available.
+                    Your key is stored locally in your browser and never sent to our servers.
+                  </p>
+                  <div>
+                    <label
+                      htmlFor="apiKey"
+                      className="block text-sm font-medium text-gray-900 mb-2 font-sans"
+                    >
+                      Anthropic API Key
+                    </label>
+                    <input
+                      type="password"
+                      id="apiKey"
+                      name="apiKey"
+                      value={formData.apiKey}
+                      onChange={handleChange}
+                      placeholder="sk-ant-..."
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-[#C2410C] focus:ring-1 focus:ring-[#C2410C]/20 transition-colors placeholder-gray-400 font-sans font-mono text-sm"
+                    />
+                    <p className="mt-1.5 text-xs text-gray-400 font-sans">
+                      Get your key at{' '}
+                      <a
+                        href="https://console.anthropic.com/settings/keys"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#C2410C] hover:underline"
+                      >
+                        console.anthropic.com
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
